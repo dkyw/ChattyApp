@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
-
-const uniqueID = require('uuid/v4');
-
 class App extends Component {
 
   constructor(props) {
@@ -18,21 +15,19 @@ class App extends Component {
     this.socket = new WebSocket('ws://localhost:3001')
   }
 
-
-
   onNewMessage(content, username) {
     const newMessage = {
-      id: uniqueID(),
       username: username || this.state.currentUser.name,
       content: content
     }
-    this.setState({
-      messages: this.state.messages.concat(newMessage)
-    })
+
+    // this.setState({
+    //   messages: this.state.messages.concat(newMessage)
+    // })
+
     const data = JSON.stringify(newMessage)
     this.socket.send(data);
   }
-
 
   componentDidMount() {
     console.log("componentDidMount <App />");
@@ -41,17 +36,19 @@ class App extends Component {
       console.log('connected to server');
     }
 
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({messages: messages})
-    }, 3000);
-  }
+    this.socket.onmessage = (message) => {
 
+      const messages = Object.assign([], this.state.messages)
+      // const messages = [..._this.state.messages]
+
+      messages.push(JSON.parse(message.data));
+      console.log(messages);
+
+      this.setState ({
+        messages: messages
+      })
+    }
+  }
 
   render() {
     const { currentUser, messages } = this.state;

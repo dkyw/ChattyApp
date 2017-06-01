@@ -40,7 +40,7 @@ class ChatBar extends Component {
           onChange= { this.onNameChange }
           value = { this.state.username }
            />
-          }
+
         <input
           className="chatbar-message"
           placeholder ="Type a message and hit ENTER"
