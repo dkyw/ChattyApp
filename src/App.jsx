@@ -7,23 +7,38 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: { name: "Bob" },
+      currentUser: { name: "Anonymous" },
       messages: []
     }
 
+    this.socket = new WebSocket('ws://localhost:3001');
+
     this.onNewMessage = this.onNewMessage.bind(this)
-    this.socket = new WebSocket('ws://localhost:3001')
   }
 
+
+  //sends to server
   onNewMessage(content, username) {
-    const newMessage = {
-      username: username || this.state.currentUser.name,
-      content: content
+    const oldName = this.state.currentUser.name;
+    let newMessage = {};
+
+    if (oldName !== username) {
+
+      newMessage = {
+        type: 'postNotification',
+        content: `${oldName} changed their name to ${username}`
+      }
+
+      const data = JSON.stringify(newMessage);
+      this.socket.send(data);
+      this.setState({currentUser: {name: username}});
     }
 
-    // this.setState({
-    //   messages: this.state.messages.concat(newMessage)
-    // })
+    newMessage = {
+      username: username || "Anonymous",
+      type: 'postMessage',
+      content: content
+    }
 
     const data = JSON.stringify(newMessage)
     this.socket.send(data);
@@ -32,21 +47,20 @@ class App extends Component {
   componentDidMount() {
     console.log("componentDidMount <App />");
 
-    this.socket.onopen = function (evt) {
+    this.socket.onopen = (evt) => {
       console.log('connected to server');
     }
 
     this.socket.onmessage = (message) => {
-
+      const messageData = JSON.parse(message.data)
+     //clone and store new message without changing original state
       const messages = Object.assign([], this.state.messages)
       // const messages = [..._this.state.messages]
-
-      messages.push(JSON.parse(message.data));
-      console.log(messages);
-
+      messages.push(messageData);
       this.setState ({
         messages: messages
       })
+
     }
   }
 
@@ -59,7 +73,6 @@ class App extends Component {
         <ChatBar
           currentUser = { currentUser }
           onNewMessage = { this.onNewMessage }
-          onNameChange = { this.onNameChange }
         />
       </div>
     );
