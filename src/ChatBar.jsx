@@ -11,12 +11,12 @@ class ChatBar extends Component {
   }
 
 
+  //on enter , retrieve current state/username content and pass to onNewMessage function
   onKeyPress = (event) => {
     if(event.key === 'Enter'){
       this.props.onNewMessage(this.state.content, this.state.username);
       this.setState ({
-        content: '',
-        username: '',
+        content: ''
       })
     }
   }
@@ -26,7 +26,6 @@ class ChatBar extends Component {
   }
 
   onNameChange = (event) => {
-    // this.props.onNameChange(event.target.value);
     this.setState({ username: event.target.value });
   }
 
@@ -37,6 +36,7 @@ class ChatBar extends Component {
         <input
           className="chatbar-username"
           placeholder="Your Name (Optional)"
+          //invoke onNameChange for every keystroke to update state
           onChange= { this.onNameChange }
           value = { this.state.username }
            />
