@@ -9,14 +9,13 @@ class MessageList extends Component {
           key = { index }
           username = { message.username }
           content = { message.content }
+          type = { message.type }
         />
       )
     });
 
     return (
-      <div id='Message-List'>
-        {message}
-      </div>
+      <div id='Message-List'>{message}</div>
     );
   }
 }
