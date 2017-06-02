@@ -8,7 +8,8 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: { name: "Anonymous" },
-      messages: []
+      messages: [],
+      userCount: 0
     }
 
     this.socket = new WebSocket('ws://localhost:3001');
@@ -31,7 +32,8 @@ class App extends Component {
 
       const data = JSON.stringify(newMessage);
       this.socket.send(data);
-      this.setState({currentUser: {name: username}});
+      this.setState({currentUser: { name: username }});
+
     }
 
     newMessage = {
@@ -52,15 +54,14 @@ class App extends Component {
     }
 
     this.socket.onmessage = (message) => {
-      const messageData = JSON.parse(message.data)
-     //clone and store new message without changing original state
-      const messages = Object.assign([], this.state.messages)
-      // const messages = [..._this.state.messages]
-      messages.push(messageData);
-      this.setState ({
-        messages: messages
-      })
+      const parsedMessage = JSON.parse(message.data);
+      const { type, data } = parsedMessage;
 
+      if(type === 'numUsers') {
+        this.setState({ userCount: data})
+      } else {
+        this.setState({ messages: this.state.messages.concat(parsedMessage)})
+      }
     }
   }
 
@@ -68,7 +69,11 @@ class App extends Component {
     const { currentUser, messages } = this.state;
     return (
       <div>
-        <nav className="navbar-brand"> </nav>
+        <nav className="user-count">
+          <span>
+            { this.state.userCount } online
+          </span>
+        </nav>
         <MessageList messages = { messages } />
         <ChatBar
           currentUser = { currentUser }
