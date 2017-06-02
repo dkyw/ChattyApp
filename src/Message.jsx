@@ -15,7 +15,7 @@ class Message extends Component {
     } else if (this.props.type === 'postNotification') {
       return (
         <main className='messages'>
-          <div class="message system">{this.props.content}</div>
+          <div className="message system">{this.props.content}</div>
         </main>
       );
     }
