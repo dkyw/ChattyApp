@@ -11,6 +11,14 @@ class ChatBar extends Component {
   }
 
 
+  onMessageChange = (event) => {
+    this.setState({ content: event.target.value });
+  }
+
+  onNameChange = (event) => {
+    this.setState({ username: event.target.value });
+  }
+
   //on enter , retrieve current state/username content and pass to onNewMessage function
   onKeyPress = (event) => {
     if(event.key === 'Enter'){
@@ -20,15 +28,6 @@ class ChatBar extends Component {
       })
     }
   }
-
-  onMessageChange = (event) => {
-    this.setState({ content: event.target.value });
-  }
-
-  onNameChange = (event) => {
-    this.setState({ username: event.target.value });
-  }
-
 
   render() {
     return (
