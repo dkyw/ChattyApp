@@ -17,7 +17,6 @@ class App extends Component {
     this.onNewMessage = this.onNewMessage.bind(this)
   }
 
-
   //sends to server
   onNewMessage(content, username) {
     const oldName = this.state.currentUser.name;
@@ -32,7 +31,7 @@ class App extends Component {
 
       const data = JSON.stringify(newMessage);
       this.socket.send(data);
-      this.setState({currentUser: { name: username }});
+      this.setState({ currentUser: { name: username }});
 
     }
 
@@ -58,9 +57,9 @@ class App extends Component {
       const { type, data } = parsedMessage;
 
       if(type === 'numUsers') {
-        this.setState({ userCount: data})
+        this.setState({ userCount: data })
       } else {
-        this.setState({ messages: this.state.messages.concat(parsedMessage)})
+        this.setState({ messages: this.state.messages.concat(parsedMessage) })
       }
     }
   }
@@ -76,7 +75,7 @@ class App extends Component {
         </nav>
         <MessageList messages = { messages } />
         <ChatBar
-          currentUser = { currentUser }
+          // currentUser = { currentUser }
           onNewMessage = { this.onNewMessage }
         />
       </div>
