@@ -54,9 +54,7 @@ class App extends Component {
 
     this.socket.onmessage = (message) => {
       const parsedMessage = JSON.parse(message.data);
-      const { type, data, userColor } = parsedMessage;
-
-      console.log('color', userColor);
+      const { type, data } = parsedMessage;
 
       if(type === 'numUsers') {
         this.setState({ userCount: data })
@@ -77,7 +75,6 @@ class App extends Component {
         </nav>
         <MessageList messages = { messages } />
         <ChatBar
-          // currentUser = { currentUser }
           onNewMessage = { this.onNewMessage }
         />
       </div>
