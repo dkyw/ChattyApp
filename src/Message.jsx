@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
 class Message extends Component {
+  //depending on the the type of message recieved from server, render different bodies for each case
   parseType() {
   const {username, content, color} = this.props;
-
     switch(this.props.type) {
       case 'incomingMessage':
         return(
@@ -21,7 +21,7 @@ class Message extends Component {
       case 'imageMessage':
         return (
           <div className="message">
-            <span className="message-username"> { username }</span>
+            <span className="message-username" style={{ color }}> { username }</span>
             <img className="message-image" src={ content }/>
           </div>
         );
