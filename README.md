@@ -1,45 +1,20 @@
-React Boilerplate
-=====================
+# Chatty App
 
-A minimal and light dev environment for ReactJS.
+- Allow users to communicate with each other without having to register accounts.
+- Contains chat log displaying messages and notifications
+- Contains an input field to change your name and an input field to send a message
 
-### Usage
+## Stack
+  - Webpack with Babel, JSX, ES6
+  - Websockets using Node package ws on the server side, and native WebSocket on client side
+  - ReactJS
 
-Clone the boilerplate and create your own git repo.
+## Usage
+- npm install
+- npm start
+- node express server.js //server.js
+- open http://localhost:3000
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+!["user changed name"](https://github.com/dkyw/ChattyApp/blob/master/docs/changename.png)
 
-Install the dependencies and start the server.
-
-```
-npm install
-npm start
-open http://localhost:3000
-```
-
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
-
-### Dependencies
-
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+!["user usert picture"](https://github.com/dkyw/ChattyApp/blob/master/docs/userimages.png)
