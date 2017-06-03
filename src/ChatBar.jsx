@@ -11,6 +11,7 @@ class ChatBar extends Component {
   }
 
 
+  //record state of the each keypress
   onMessageChange = (event) => {
     this.setState({ content: event.target.value });
   }
