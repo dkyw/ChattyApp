@@ -2,26 +2,27 @@ import React, {Component} from 'react';
 
 class Message extends Component {
   parseType() {
-    switch(this.props.type) {
+  const {username, content, color} = this.props;
 
+    switch(this.props.type) {
       case 'incomingMessage':
         return(
           <div className="message">
-            <span className="message-username"> { this.props.username }</span>
-            <span className="message-content">{this.props.content}</span>
+            <span className="message-username" style={{ color }}> { username }</span>
+            <span className="message-content">{ content }</span>
           </div>
         )
         break;
 
       case 'incomingNotification':
-        return (<div className="message system">{this.props.content}</div>);
+        return (<div className="message system">{ content }</div>);
         break;
 
       case 'imageMessage':
         return (
           <div className="message">
-            <span className="message-username"> { this.props.username }</span>
-            <img className="message-image" src={ this.props.content }/>
+            <span className="message-username"> { username }</span>
+            <img className="message-image" src={ content }/>
           </div>
         );
         break;

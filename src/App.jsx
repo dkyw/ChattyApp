@@ -54,7 +54,9 @@ class App extends Component {
 
     this.socket.onmessage = (message) => {
       const parsedMessage = JSON.parse(message.data);
-      const { type, data } = parsedMessage;
+      const { type, data, color } = parsedMessage;
+
+      // console.log(color,'color');
 
       if(type === 'numUsers') {
         this.setState({ userCount: data })
