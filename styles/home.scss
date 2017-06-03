@@ -38,6 +38,7 @@ body {
   flex: 2;
 }
 
+
 .messages {
   padding-left: 25px;
 }
@@ -65,6 +66,12 @@ body {
 .message-username {
   flex: 2;
   font-weight: 700;
+}
+
+.message-image {
+  width: 20%;
+  height: 20%;
+  padding-right: 58%;
 }
 
 .navbar {
