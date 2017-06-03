@@ -56,11 +56,10 @@ class App extends Component {
       const parsedMessage = JSON.parse(message.data);
       const { type, data, color } = parsedMessage;
 
-      // console.log(color,'color');
-
       if(type === 'numUsers') {
         this.setState({ userCount: data })
       } else {
+        //append new messages onto existing set of messages
         this.setState({ messages: this.state.messages.concat(parsedMessage) })
       }
     }
